@@ -1,13 +1,19 @@
-## Welcome to GitHub Pages
+# 3D Scene Reconstruction from RGB-Depth Images
 
-You can use the [editor on GitHub](https://github.com/Chengjie-Z/3D-scene-reconstruction/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+## Summary
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+We plan to build a 3D scene reconstruction system using data from an RGB-D camera. The 3D scene reconstruction system includes two major steps, visual odometry and point cloud meshing. From multiple frames of RGB-D images, we will first estimate the position and pose of the camera and build a dense point cloud representing objects in 3D. We will then construct 3D meshes from the generated point cloud. 
 
-### Markdown
+## Problem Description
+3D scene reconstruction from multiple RGB-D images has recently become a popular research topic, as it can be applied in many emerging techniques, such as augmented virtual reality, gaming and robotics. Obtaining a reconstructed 3D model of a scene at high quality is thought to be a challenging task due to the difficulties in fusing noisy depth data into reliable 3D representation, artifact corrections, and building efficient and scalable algorithms to complete the task within a reasonable computing time. We plan to build a preliminary 3D scene reconstruction system that can reconstruct dense mesh of a room-scale environment. The system comprises two main parts: camera pose estimation and mesh reconstruction from point cloud. Camera pose estimation is important for merging point clouds observed in different frames to form a global point cloud for the complete scene. Mesh reconstruction from the point cloud will enable us to render realistic surfaces instead of points. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+We will solve the pose estimation problem using visual odometry with feature points. It uses non-linear optimization over camera poses and feature point positions to minimize the projection errors of feature points across different frames. This technique is called Bundle Adjustment. We will modify an existing stereo visual odometry system into an RGB-D visual odometry system. 
 
+Mesh reconstruction of a 3D scene from a dense point cloud requires an efficient and robust algorithm to construct realistic scene objects from a large amount of noisy point data. We plan to implement the truncated signed distance function (TSDF), which represents the geometries as implicit functions by converting the point cloud into a volumetric form with each voxel storing the truncated signed distance from the camera. A mesh can then be extracted using the marching cube algorithm. To improve the memory efficiency of this approach, we plan to explore using adaptive data structures, octree and using hashing-based sparse voxel representation.  
+
+## Goals and Deliverables
+
+We plan to build a preliminary 3D Reconstruction system that can successfully reconstruct the mesh of a small-scale environment similar to the [BundleFusion project](https://graphics.stanford.edu/projects/bundlefusion/).
 ```markdown
 Syntax highlighted code block
 
