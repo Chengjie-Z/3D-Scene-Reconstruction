@@ -58,11 +58,16 @@ div.title-bar li a {
 }
 
 div.title-bar li a:hover {
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(246, 246, 246);
     border-radius: 18px;
     color: #5c5c5c;
 }
         
+ div.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
     </style>
     <title>3D reconstruction | CS 184</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -90,6 +95,7 @@ div.title-bar li a:hover {
                 </div>
             </div>
         </div>
+    
     <h1 align="middle">3D Scene Reconstruction from RGB-Depth Images</h1>
     <h2 align="middle">Jianwei Zhang, Chengjie Zhu, Fanwei Kong
     </h2>
