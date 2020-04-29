@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <style>
+        div.padded 
+        {
+            padding-top: 0px;
+            padding-right: 180px;
+            padding-bottom: 0.25in;
+            padding-left: 180px;
+            line-height:24px;
+            font-size: 19px;
+        }
+        
+    div.site-header 
+   {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: auto; 
+   }
+ 
+        div.title-bar {
+    float: right;
+    padding: 5px;
+}
+        div.title-bar ul {
+    list-style-type: none;
+    overflow: hidden;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+  }
+
+div.title-bar li {
+    padding: 5px;
+    float: left;
+}
+        
+div.title-bar li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: normal;
+    color: rgb(129, 129, 129);
+    padding: 16px;
+}
+
+div.title-bar li a:hover {
+    background-color: rgb(246, 246, 246);
+    border-radius: 18px;
+    color: #5c5c5c;
+}
+        
+ div.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+    </style>
+    
+    <title>3D reconstruction | CS 184</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    
+</head>
+<body>
+  <div class="site-header">
+                <div class="title-bar">
+                    <ul>
+                        <li>
+                            <a href="proposal.html">Proposal</a>
+                        </li>
+                        <li>
+                            <a href="index.html">Milestone Report</a>
+                        </li>
+                        <li>
+                            <a href="report.html">Final Report</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    <h1 align="middle">Final Project Proposal</h1>
+    <h2 align="middle">Jianwei Zhang, Fanwei Kong, Chengjie Zhu
+    </h2>
+
+    <div class="padded">
+
+        <h2 align="left">Summary</h2>
+        <p>
+            We plan to build a 3D scene reconstruction system using data from an RGB-D camera. The 3D scene reconstruction system includes two major steps, visual odometry and point cloud meshing. From multiple frames of RGB-D images, we will first estimate the position and pose of the camera and build a dense point cloud representing objects in 3D. We will then construct 3D meshes from the generated point cloud. 
+        </p>
+       
+        <h2 align="left">Problem Description</h2>
+        
+        <p>
+            3D scene reconstruction from multiple RGB-D images has recently become a popular research topic, as it can be applied in many emerging techniques, such as augmented virtual reality, gaming and robotics. Obtaining a reconstructed 3D model of a scene at high quality is thought to be a challenging task due to the difficulties in fusing noisy depth data into reliable 3D representation, artifact corrections, and building efficient and scalable algorithms to complete the task within a reasonable computing time. We plan to build a preliminary 3D scene reconstruction system that can reconstruct dense mesh of a room-scale environment. The system comprises two main parts: camera pose estimation and mesh reconstruction from point cloud. Camera pose estimation is important for merging point clouds observed in different frames to form a global point cloud for the complete scene. Mesh reconstruction from the point cloud will enable us to render realistic surfaces instead of points. 
+        </p>
+      <p>
+        We will solve the pose estimation problem using visual odometry with feature points. It uses non-linear optimization over camera poses and feature point positions to minimize the projection errors of feature points across different frames. This technique is called Bundle Adjustment. We will modify an existing stereo visual odometry system into an RGB-D visual odometry system. 
+      </p>
+ <p>
+    Mesh reconstruction of a 3D scene from a dense point cloud requires an efficient and robust algorithm to construct realistic scene objects from a large amount of noisy point data. We plan to implement the truncated signed distance function (TSDF), which represents the geometries as implicit functions by converting the point cloud into a volumetric form with each voxel storing the truncated signed distance from the camera. A mesh can then be extracted using the marching cube algorithm. To improve the memory efficiency of this approach, we plan to explore using adaptive data structures, octree and using hashing-based sparse voxel representation.  
+ </p>
+        <h2 align="left">Goals and Deliverables</h2>
+        
+        <p>We plan to build a preliminary 3D Reconstruction system that can successfully reconstruct the mesh of a small-scale environment similar to the <a href="https://graphics.stanford.edu/projects/bundlefusion/">BundleFusion project</a>.</p>
+       
+        <h3 align="left">Part 1: What we plan to deliver</h3>
+        <p>We plan to deliver implementation of a RGB-D visual odometry system to merge point clouds from multiple frames. For mesh reconstruction from point cloud, we will start with implementing the TSDF algorithm to construct mesh from point cloud at object scale. We will then improve the speed and memory efficiency of our implementation to construct a mesh for the whole scene using either octree or voxel-hashing data structure. Images of the aligned point cloud and reconstructed meshes will be created.  With the developed system, we will also produce rendered images using existing software packages. 
+        </p>
+        <p>The quality of our system can be measured by the quality of the mesh constructed, the speed of reconstruction, and the reconstruction scale. Images of the mesh reconstructed will be produced to visualize the mesh quality, in terms of how well the mesh can represent objects in the scene at different scales. We will pay special attention to the meshing results at places in the scene where noise and outliers in the point clouds are present. The reconstruction quality can also be quantified by the point-to-point distance error between the mesh vertices and the ground truth point cloud. 
+        </p>
+        <h3 align="left">Part 2: What we hope to deliver</h3>
+      <p>If time permits, we hope to implement both the octree-based and voxel-hashing-based data structures and compare their performance. The performance will be evaluated in terms of runtime and scalability in response to increasing number of points. 
+    </p>
+
+        <h2 align="left">Schedule</h2>
+        <p><strong>Week 1:</strong> Finish point cloud reconstruction, understanding TSDF-based mesh reconstruction from point cloud.
+        </p>
+        <p>
+            <strong>Week 2:</strong> Improve on point cloud reconstruction if needed. Implement TSDF-based point cloud meshing and understand octree-based and voxel-hashing based data structures. Get familiar with GL for rendering mesh. 
+        </p>
+        <p><strong>Week 3:</strong> Implement using octree-based or voxel-hashing based data structure for memory efficient TSDF-based point cloud meshing.  Run-time integration of point cloud merging and meshing from point cloud if possible.        </p>
+        <p><strong>Week 4:</strong> Try to improve speed and quality if possible. Work on deliverables.</p>
+
+        <h2 align="left">Resources</h2>
+        <h3 align="left">References</h3>
+        <p>Our project is based on the following sources on RGB-D reconstruction systems: 
+        </p>
+        <p>Elastics Fusion: <a href="http://roboticsproceedings.org/rss11/p01.pdf">http://roboticsproceedings.org/rss11/p01.pdf</a>;</p>
+        <p>Bundle Fusion: <a href="https://arxiv.org/abs/1604.01093">https://arxiv.org/abs/1604.01093</a>;</p>
+        <p>Sparse feature-based Visual SLAM System: <a href="https://arxiv.org/abs/1610.06475">https://arxiv.org/abs/1610.06475</a>;</p>
+        <p>A Tutorial on Visual SLAM: <a href="https://github.com/gaoxiang12/slambook2">https://github.com/gaoxiang12/slambook2</a>.</p>
+        <p>For stereo visual odometry system to align and merge point clouds, we plan to start with and modify upon the following code: <a href = "https://github.com/gaoxiang12/slambook2/tree/master/ch13">https://github.com/gaoxiang12/slambook2/tree/master/ch13</a>.</p>
+        <p>For mesh reconstruction from point cloud, we will start with using the open-souce Point Cloud Library (PCL) which provides support for many point cloud processing techniques: <a href = "https://github.com/PointCloudLibrary/pcl">https://github.com/PointCloudLibrary/pcl</a>.</p>
+        <p>For efficient point-cloud meshing with voxel hashing, we will start with modifying the VoxelHashing implementation to make it compatible with our system: <a href = "https://github.com/niessner/VoxelHashing">https://github.com/niessner/VoxelHashing</a>. 
+        </p>
+        <p>The voxel hashing based TSDF algorithm is described in <a href = "https://niessnerlab.org/papers/2013/4hashing/niessner2013hashing.pdf">Real-time 3D Reconstruction at Scale using Voxel Hashing</a>.
+        </p>
+        <h3 align="left">Computing Platform</h3>
+        
+        <p>The project will be implemented on Windows, MacOS and Ubuntu.
+        </p>
